@@ -25,6 +25,7 @@ final class ApiManager {
         completion: @escaping (Result<Data?, AFError>) -> Void
     ) {
         let url = "\(baseURL)\(route)"
+        print("API url: \(url)")
         session.request(url, method: .get, parameters: params, headers: headers)
             .validate()
             .response { response in

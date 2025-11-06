@@ -51,8 +51,8 @@ final class ProjectRepository: ProjectBaseRepository {
         let params: [String: Any] = [
             "q": city,
             "appid": NetworkConstants.apiKey,
-            "units": "metric",
-            "cnt": 7
+            "units": "imperial", //imperial and metrics
+            "cnt": 40 //Critical: 40 = 5 days × 8 (3-hour intervals)
         ]
 
         api.get("/forecast", params: params) { result in
@@ -64,12 +64,14 @@ final class ProjectRepository: ProjectBaseRepository {
                 }
                 do {
                     let decoded = try JSONDecoder().decode(ForecastResponse.self, from: data)
+                    print("API Success: \(decoded)")
                     completion(.success(decoded))
                 } catch {
                     print("Decoding error: \(error)")
                     completion(.failure(error))
                 }
             case .failure(let error):
+                print("API error: \(error)")
                 completion(.failure(error))
             }
         }

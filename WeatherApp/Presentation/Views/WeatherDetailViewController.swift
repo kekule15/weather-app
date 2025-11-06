@@ -57,7 +57,15 @@ final class WeatherDetailViewController: UIViewController {
         searchBtn.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
         searchBtn.tintColor = .label
         
-        header.addSubview(favBtn); header.addSubview(cityLbl); header.addSubview(searchBtn)
+        // Add subviews to header
+        header.addSubview(favBtn)
+        header.addSubview(cityLbl)
+        header.addSubview(searchBtn)
+        
+        // Disable autoresizing masks
+        [favBtn, cityLbl, searchBtn].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
         
         // Icon
         iconIV.contentMode = .scaleAspectFit
@@ -94,20 +102,32 @@ final class WeatherDetailViewController: UIViewController {
         
         // Layout
         NSLayoutConstraint.activate([
+            // === HEADER CONTAINER ===
             header.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             header.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             header.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             header.heightAnchor.constraint(equalToConstant: 50),
             
+            // === SUBVIEWS INSIDE HEADER ===
+            // Favorite Button
             favBtn.leadingAnchor.constraint(equalTo: header.leadingAnchor, constant: 16),
             favBtn.centerYAnchor.constraint(equalTo: header.centerYAnchor),
+            favBtn.widthAnchor.constraint(equalToConstant: 44),
+            favBtn.heightAnchor.constraint(equalToConstant: 44),
             
+            // City Label
             cityLbl.centerXAnchor.constraint(equalTo: header.centerXAnchor),
             cityLbl.centerYAnchor.constraint(equalTo: header.centerYAnchor),
+            cityLbl.leadingAnchor.constraint(greaterThanOrEqualTo: favBtn.trailingAnchor, constant: 8),
+            cityLbl.trailingAnchor.constraint(lessThanOrEqualTo: searchBtn.leadingAnchor, constant: -8),
             
+            // Search Button
             searchBtn.trailingAnchor.constraint(equalTo: header.trailingAnchor, constant: -16),
             searchBtn.centerYAnchor.constraint(equalTo: header.centerYAnchor),
+            searchBtn.widthAnchor.constraint(equalToConstant: 44),
+            searchBtn.heightAnchor.constraint(equalToConstant: 44),
             
+            // === MAIN CONTENT ===
             iconIV.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 24),
             iconIV.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             iconIV.widthAnchor.constraint(equalToConstant: 120),
@@ -233,16 +253,39 @@ final class ForecastDayCell: UITableViewCell {
     }
     
     func configure(with day: DailySummary) {
-        let fmt = DateFormatter(); fmt.dateFormat = "E"
+        let fmt = DateFormatter()
+        fmt.dateFormat = "E"
         dayL.text = fmt.string(from: day.date)
+        
         desc.text = day.description
-        temp.text = day.high > 0 ? "\(Int(day.high))° / \(Int(day.low))°" : "–"
-        if let url = URL(string: "https://openweathermap.org/img/wn/\(day.icon).png") {
-            URLSession.shared.dataTask(with: url) { d, _, _ in
-                if let d = d, let img = UIImage(data: d) {
+        
+        if day.high > 0 {
+            temp.text = "\(Int(day.high))° / \(Int(day.low))°"
+        } else {
+            temp.text = "–"
+        }
+        
+        let urlStr = "https://openweathermap.org/img/wn/\(day.icon).png"
+        if let url = URL(string: urlStr) {
+            URLSession.shared.dataTask(with: url) { data, _, _ in
+                if let data = data, let img = UIImage(data: data) {
                     DispatchQueue.main.async { self.icon.image = img }
                 }
             }.resume()
         }
     }
+    
+//    func configure(with day: DailySummary) {
+//        let fmt = DateFormatter(); fmt.dateFormat = "E"
+//        dayL.text = fmt.string(from: day.date)
+//        desc.text = day.description
+//        temp.text = day.high > 0 ? "\(Int(day.high))° / \(Int(day.low))°" : "–"
+//        if let url = URL(string: "https://openweathermap.org/img/wn/\(day.icon).png") {
+//            URLSession.shared.dataTask(with: url) { d, _, _ in
+//                if let d = d, let img = UIImage(data: d) {
+//                    DispatchQueue.main.async { self.icon.image = img }
+//                }
+//            }.resume()
+//        }
+//    }
 }

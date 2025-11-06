@@ -63,35 +63,62 @@ import Foundation
 
 extension ForecastResponse {
     var dailySummaries: [DailySummary] {
-        var dict: [Date: [ForecastItem]] = [:]
-        let cal = Calendar.current
-        for item in list {
-            let day = cal.startOfDay(for: Date(timeIntervalSince1970: TimeInterval(item.dt)))
-            dict[day, default: []].append(item)
-        }
-        let days = dict.keys.sorted()
+        let calendar = Calendar.current
+        var dayGroups: [Date: [ForecastItem]] = [:]
         
-        return (0..<7).map { i -> DailySummary in
-            guard i < days.count else {
-                let future = cal.date(byAdding: .day, value: i, to: days.first ?? Date())!
-                return DailySummary(date: future, high: 0, low: 0, description: "–", icon: "01d", pop: 0)
+        // Group by calendar day (start of day)
+        for item in list {
+            let date = Date(timeIntervalSince1970: TimeInterval(item.dt))
+            let dayStart = calendar.startOfDay(for: date)
+            dayGroups[dayStart, default: []].append(item)
+        }
+        
+        // Sort days
+        let sortedDays = dayGroups.keys.sorted()
+        
+        // Generate up to 7 days
+        return (0..<7).map { index in
+            guard index < sortedDays.count else {
+                // Future day with no data
+                let futureDate = calendar.date(byAdding: .day, value: index, to: sortedDays.first ?? Date())!
+                return DailySummary(
+                    date: futureDate,
+                    high: 0,
+                    low: 0,
+                    description: "–",
+                    icon: "01d",
+                    pop: 0
+                )
             }
-            let day = days[i]
-            let items = dict[day]!
-            let temps = items.map { $0.main.temp }
+            
+            let day = sortedDays[index]
+            let items = dayGroups[day]!
+            
+            // Safely extract temps
+            let temps = items.compactMap { $0.main.temp }
+            guard !temps.isEmpty else {
+                return DailySummary(date: day, high: 0, low: 0, description: "–", icon: "01d", pop: 0)
+            }
+            
             let high = temps.max()!
-            let low  = temps.min()!
-            let weathers = items.flatMap { $0.weather }
-            let dominant = weathers.max(by: { a, b in
-                weathers.filter { $0.id == a.id }.count < weathers.filter { $0.id == b.id }.count
-            })!
-            let pop = items.map { $0.pop }.max()!
-            return DailySummary(date: day,
-                                high: high,
-                                low: low,
-                                description: dominant.description.capitalized,
-                                icon: dominant.icon,
-                                pop: pop)
+            let low = temps.min()!
+            
+            // Dominant weather
+            let allWeather = items.flatMap { $0.weather }
+            let weatherCounts = Dictionary(grouping: allWeather, by: { $0.id })
+            let dominant = weatherCounts.max(by: { $0.value.count < $1.value.count })?.value.first
+            
+            // Max precipitation probability
+            let maxPop = items.compactMap { $0.pop }.max() ?? 0
+            
+            return DailySummary(
+                date: day,
+                high: high,
+                low: low,
+                description: (dominant?.description ?? "unknown").capitalized,
+                icon: dominant?.icon ?? "01d",
+                pop: maxPop
+            )
         }
     }
 }
