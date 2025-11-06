@@ -6,6 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		DF31628D2EBC706800BAADED /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = DF31628C2EBC706800BAADED /* Alamofire */; };
+		DF31628F2EBC706F00BAADED /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = DF31628E2EBC706F00BAADED /* Factory */; };
+		DF3162952EBC717700BAADED /* FactoryKit in Frameworks */ = {isa = PBXBuildFile; productRef = DF3162942EBC717700BAADED /* FactoryKit */; };
+		DF3162972EBC717F00BAADED /* FactoryTesting in Frameworks */ = {isa = PBXBuildFile; productRef = DF3162962EBC717F00BAADED /* FactoryTesting */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		DF31624B2EBC0FC100BAADED /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -22,6 +29,19 @@
 			remoteInfo = WeatherApp;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DF3162932EBC70FC00BAADED /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		DF3162342EBC0FBF00BAADED /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,6 +85,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF3162972EBC717F00BAADED /* FactoryTesting in Frameworks */,
+				DF31628D2EBC706800BAADED /* Alamofire in Frameworks */,
+				DF3162952EBC717700BAADED /* FactoryKit in Frameworks */,
+				DF31628F2EBC706F00BAADED /* Factory in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,6 +115,7 @@
 				DF3162362EBC0FBF00BAADED /* WeatherApp */,
 				DF31624D2EBC0FC100BAADED /* WeatherAppTests */,
 				DF3162572EBC0FC200BAADED /* WeatherAppUITests */,
+				DF31628B2EBC706800BAADED /* Frameworks */,
 				DF3162352EBC0FBF00BAADED /* Products */,
 			);
 			sourceTree = "<group>";
@@ -105,6 +130,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		DF31628B2EBC706800BAADED /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -115,6 +147,7 @@
 				DF3162302EBC0FBF00BAADED /* Sources */,
 				DF3162312EBC0FBF00BAADED /* Frameworks */,
 				DF3162322EBC0FBF00BAADED /* Resources */,
+				DF3162932EBC70FC00BAADED /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -125,6 +158,10 @@
 			);
 			name = WeatherApp;
 			packageProductDependencies = (
+				DF31628C2EBC706800BAADED /* Alamofire */,
+				DF31628E2EBC706F00BAADED /* Factory */,
+				DF3162942EBC717700BAADED /* FactoryKit */,
+				DF3162962EBC717F00BAADED /* FactoryTesting */,
 			);
 			productName = WeatherApp;
 			productReference = DF3162342EBC0FBF00BAADED /* WeatherApp.app */;
@@ -208,6 +245,10 @@
 			);
 			mainGroup = DF31622B2EBC0FBF00BAADED;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				DF3162802EBC11F200BAADED /* XCRemoteSwiftPackageReference "Alamofire" */,
+				DF31628A2EBC6B8500BAADED /* XCRemoteSwiftPackageReference "Factory" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = DF3162352EBC0FBF00BAADED /* Products */;
 			projectDirPath = "";
@@ -291,11 +332,12 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WeatherApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WeatherApp;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -318,11 +360,12 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WeatherApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WeatherApp;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -563,6 +606,48 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DF3162802EBC11F200BAADED /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.10.2;
+			};
+		};
+		DF31628A2EBC6B8500BAADED /* XCRemoteSwiftPackageReference "Factory" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hmlongco/Factory";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.5.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DF31628C2EBC706800BAADED /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF3162802EBC11F200BAADED /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		DF31628E2EBC706F00BAADED /* Factory */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF31628A2EBC6B8500BAADED /* XCRemoteSwiftPackageReference "Factory" */;
+			productName = Factory;
+		};
+		DF3162942EBC717700BAADED /* FactoryKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF31628A2EBC6B8500BAADED /* XCRemoteSwiftPackageReference "Factory" */;
+			productName = FactoryKit;
+		};
+		DF3162962EBC717F00BAADED /* FactoryTesting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF31628A2EBC6B8500BAADED /* XCRemoteSwiftPackageReference "Factory" */;
+			productName = FactoryTesting;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DF31622C2EBC0FBF00BAADED /* Project object */;
 }
