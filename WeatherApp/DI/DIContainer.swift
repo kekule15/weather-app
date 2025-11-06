@@ -9,19 +9,12 @@ import Factory
 
 extension Container {
     // ApiManager factory: singleton-ish for convenience
-    var apiManager: Factory<ApiManager> {
-        Factory(self) {
-            ApiManager()
-        }
-    }
-
+    var apiManager: Factory<ApiManager> { Factory(self) { ApiManager() } }
+    
     // Repository factory that depends on apiManager
     var projectRepository: Factory<ProjectBaseRepository> {
-        Factory(self) {
-            // note: cast concrete implementation to protocol
-            return ProjectRepository(api: self.apiManager()) as ProjectBaseRepository
+            Factory(self) { ProjectRepository(api: self.apiManager()) as ProjectBaseRepository }
         }
-    }
 
     // ViewModel factory (returns fully constructed view model)
 //    var weatherViewModel: Factory<WeatherViewModel> {

@@ -9,5 +9,5 @@ import Foundation
 
 struct NetworkConstants {
     static let baseURL = "https://api.openweathermap.org/data/2.5"
-    static let apiKey = "YOUR_API_KEY" // replace with your OpenWeather API key
+    static let apiKey = "a032006685b185d7a9ad03bc270b4fa6"
 }

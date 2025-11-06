@@ -8,5 +8,9 @@
 import Foundation
 
 protocol ProjectBaseRepository {
-    func fetchWeather(for city: String, completion: @escaping (WeatherResponse?) -> Void)
+    // Current weather ( /weather )
+    func fetchCurrentWeather(for city: String, completion: @escaping (Result<CurrentWeatherResponse, Error>) -> Void)
+
+    // Forecast / list (e.g. 5 day / forecast or custom endpoint)
+    func fetchWeatherForecast(for city: String, completion: @escaping (Result<ForecastResponse, Error>) -> Void)
 }
